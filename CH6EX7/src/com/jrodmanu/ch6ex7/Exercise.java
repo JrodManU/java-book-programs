@@ -6,15 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Exercise extends JFrame {
-
     private final int WIDTH = 300;
     private final int HEIGHT = 200;
     private final String TITLE = "Compute Deposit on Maturity";
-
     private JLabel depositedL, yearsL, interestRateL, finalAmountL;
     private JTextField depositedTF, yearsTF, interestRateTF, finalAmountTF;
     private JButton calcB, exitB;
-
     public Exercise() {
         depositedL = new JLabel("Amount Deposited: ", SwingConstants.RIGHT);
         yearsL = new JLabel("Years: ", SwingConstants.RIGHT);
@@ -28,7 +25,6 @@ public class Exercise extends JFrame {
         calcB.addActionListener(new CalcBHandler());
         exitB = new JButton("Exit");
         exitB.addActionListener(new ExitBHandler());
-
         Container pane = getContentPane();
         pane.setLayout(new GridLayout(5,2));
         pane.add(depositedL);
@@ -50,10 +46,10 @@ public class Exercise extends JFrame {
     public static void main(String[] args) {
         Exercise exercise = new Exercise();
     }
-
     private class CalcBHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            finalAmountTF.setText(String.valueOf(Double.valueOf(depositedTF.getText()) * (1 + Double.valueOf(interestRateTF.getText()) / 100)));
+            finalAmountTF.setText(String.format("$%.2f", Double.valueOf(depositedTF.getText()) *
+                    Math.pow(1 + Double.valueOf(interestRateTF.getText()) / 100, Double.valueOf(yearsTF.getText()))));
         }
     }
     private class ExitBHandler implements ActionListener {
